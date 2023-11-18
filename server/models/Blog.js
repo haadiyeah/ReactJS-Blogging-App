@@ -11,7 +11,7 @@ const blogSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: URL,
+    type: String,//image url
     required: false,
   },
   owner: {
