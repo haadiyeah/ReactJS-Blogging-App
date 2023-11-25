@@ -79,7 +79,7 @@ router.get('/', async (req, res) => {
 
     //find blogs which match
     //use "await" to make sure whole query executes before assigning
-    const blogs = await Blog.find(query)
+    let blogs = await Blog.find(query)
       .sort(sortOptions) //sort object
       .skip((page - 1) * limit) //implements pagination by skipping over objects 
       .limit(limit)
@@ -88,6 +88,16 @@ router.get('/', async (req, res) => {
     if (blogs.length === 0) {
       return res.status(404).send('No blogs found');
     }
+
+    blogs = await Promise.all(blogs.map(async blog => {
+      const user = await User.findById(blog.owner);
+      if (user) {
+        blog = blog.toObject();
+        blog.owner = user.username; //replace for display purposes
+        //console.log(user.username + " is now " + blog.owner);
+      }
+      return blog;
+    }));
 
     const blogNo = await Blog.find(query).countDocuments(); //counting no. of blogs in db
     const totalPages = Math.ceil(blogNo / limit); //total no. of pages

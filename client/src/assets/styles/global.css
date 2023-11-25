@@ -44,3 +44,51 @@
   }
 
   
+  Link, .link {
+    text-decoration: none;
+    color: white;
+  }
+
+  .link:hover {
+    color: black;
+  }
+
+  
+.nav-item {
+  transition: all 0.1s ease-in-out;
+}
+
+.nav-item:hover {
+  color: rgb(255, 255, 255);
+  border-bottom: 4px solid coral;
+}
+
+#loginSignup {
+  float:right;
+}
+
+.btn-primary {
+  background-color: rgb(113, 68, 51);
+  border:none;
+}
+
+.btn-secondary {
+  background-color: rgb(113, 68, 51);
+  border: none;
+}
+
+.btn-secondary:hover, .btn-primary:hover {
+  background-color: white;
+  color: coral;
+  font-weight: 500;
+}
+
+.navbar {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

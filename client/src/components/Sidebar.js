@@ -5,6 +5,7 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
     const [searchKeywords, setsearchKeywords] = useState('');
     const [keywordsArray, setKeywordsArray] = useState([]); //search results [blog
     const [selectedSort, setSelectedSort] = useState({ sortBy: 'createdAt', sortOrder: 'desc' });
+    const [searchAuthor, setAuthor] = useState('');
 
     const handleRadioChange = (event) => {
         setSelectedSort({ sortBy: event.target.value, sortOrder: event.target.id });
@@ -16,6 +17,11 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
         setKeywordsArray(event.target.value.split(' ')); //split-> gives an array of words
     };
 
+    const handleAuthorChange = (event) => {
+        setAuthor(event.target.value);
+    };
+
+
     const handleSearchSubmit = (event) => {
         event.preventDefault();
     
@@ -26,6 +32,10 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
         fetchString += keywordParams.join('&'); // join query parameters with '&' as the separator
 
         fetchString += `&sortBy=${selectedSort.sortBy}&sortOrder=${selectedSort.sortOrder}&limit=${limit}`
+
+        if(searchAuthor != '') {
+            fetchString += `&author=${searchAuthor}`
+        }
 
         console.log("FETCHING: " + fetchString)
 
@@ -43,6 +53,10 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
                 setTotalPages(data.totalPages);  //total no of pages that will be required
             })
             .catch(error => {
+                if (error.message.includes('404')) {
+                    setBlogs(null); //this causes blogfeed to display 'no blogs found'
+                    setTotalPages(1);
+                }
                 console.error('Fetch error:', error);
                 console.error('Error name:', error.name);
                 console.error('Error message:', error.message);
@@ -53,12 +67,20 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
 
     return (
         <div className="sidebar">
-            <form id="searchSidebar" onSubmit={handleSearchSubmit}>
+             <h5>Keywords</h5>
+            <form onSubmit={handleSearchSubmit} className="searchbar">
                 <input type="text" placeholder="Search..." value={searchKeywords} onChange={handleSearchChange} />
                 <input type="submit" value="🔍" />
             </form>
 
-            <h1>Sort by</h1>
+            <h5>Author</h5>
+            <form  onSubmit={handleSearchSubmit} className="searchbar">
+                <input type="text" placeholder="Search..." value={searchAuthor} onChange={handleAuthorChange} />
+                <input type="submit" value="🔍" />
+            </form>
+           
+
+            <h5>Sort by</h5>
             <form>
                 <input type="radio" id="desc" name="sort" value="createdAt" checked={selectedSort.sortBy === 'createdAt' && selectedSort.sortOrder === 'desc'} onChange={handleRadioChange} defaultChecked />
                 <label htmlFor="newest">Newest First</label><br />
@@ -81,9 +103,11 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
 
             <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                 <p>Show 
-                    <input type="number" id="limitPosts" placeholder='10' min="1" max="15" value={limit} onChange={(event) => setLimit(event.target.value) } /> 
+                    <input type="number" id="limitPosts" class="sidebarTextfield" placeholder='10' min="1" max="15" value={limit} onChange={(event) => setLimit(event.target.value) } /> 
                 posts per page </p>
             </div>
+
+            <button id="goSearch" onClick={handleSearchSubmit}>Apply Settings</button>
         </div>
     );
 }

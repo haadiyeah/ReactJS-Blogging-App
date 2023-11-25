@@ -118,6 +118,10 @@ h1{
      
     }
 
+    .navbar{
+        margin-top: 0px;
+    }
+
     .blogfeed {
         width: 80%;
     }
@@ -178,26 +182,23 @@ h1{
     font-style: italic;
 }
 
-
-
-.sidebar h1 {
+.sidebar h5 {
     margin: 0px;
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 0px;
     width: 100%;
-    font-size: 25px;
 }
 
 .App {
     display: flex;
 }
 
-.sidebar input[type="text"] {
+.searchbar input[type="text"] {
     width: 90%;
 }
 
-.sidebar input[type="submit"] {
+.searchbar input[type="submit"] {
     width: 20%;
     font-size: 14px;
 }
@@ -206,9 +207,9 @@ h1{
     margin-right: 5px;
 }
 
-#searchSidebar {
+.sidebar .searchbar {
     display: flex;
-    flex-direction: row;
+    flex-direction:row;
 }
 
 .navbarBrand {
@@ -259,23 +260,52 @@ h1{
     padding-right: 50px;
 }
 
-#limitPosts {
-    width: 50px;
+.sidebar input[type="text"], .sidebar input[type="number"] {
     background-color: transparent;
     border: none;
     color: wheat;
-    text-align: center;
     transition: all 0.1s ease-in-out;
-
 }
+
+.sidebar input[type="submit"] {
+    background-color: transparent;
+    border: 1px solid wheat;
+    transition: all 0.1s ease-in-out;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 50px;
+}
+
+.sidebar input[type="submit"]:hover{
+    background-color: wheat;
+}
+
+#limitPosts {
+    width: 50px;
+    text-align: center;
+}
+
 
 .limitPostsPara {
     display: inline-block;
 }
 
-#limitPosts:focus {
+.sidebar input[type="text"]:focus , .sidebar input[type="number"]:focus{
     outline: none;
     border-bottom: 3px solid coral;
 }
 
+#goSearch{
+border: none;
+border-radius: 30px;
+margin: 0;
+background-color: rgb(224, 196, 143);
+padding: 5px;
+transition: all 0.1s ease-in-out;
+}
 
+#goSearch:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-weight:500;
+}

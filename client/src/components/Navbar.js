@@ -1,6 +1,7 @@
 import React from 'react';
+import { Route, Routes, Link } from "react-router-dom"
 import logo from '../assets/images/hyrulegazettelogo.png';
-import globalStyles from '../assets/styles/global.css';
+import '../assets/styles/global.css';
 
 function Navbar() {
     return (
@@ -10,32 +11,29 @@ function Navbar() {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul className="navbar-nav">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                <ul className="navbar-nav mr-auto">
+                    <li className="nav-item">
+                    <Link to="/blogs/" className="nav-link">Home</Link>
+                        {/* <a className="nav-link" href="#">Home </a> */}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">About</a>
+                    <Link to="/blogs/" className="nav-link">Post</Link>
+                        {/* <a className="nav-link" href="#">About</a> */}
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Your Profile</a>
+                    <Link to="/blogs/" className="nav-link">About Us</Link>
                     </li>
-                    <li>
-                        {/* <div className="dropdown">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown button
-                            </button>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
-                                <a className="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div> */}
+                    <li className="nav-item">
+                    <Link to="/blogs/" className="nav-link">Profile</Link>
                     </li>
                 </ul>
             </div>
+            <div class="buttons">
+                <button class="btn btn-primary"> <Link className="link" to="/users/register" >Sign up</Link> </button>
+                <button class="btn btn-secondary">Log in</button>
+            </div>
         </nav>
     )
+    
 }
 export default Navbar;
-
