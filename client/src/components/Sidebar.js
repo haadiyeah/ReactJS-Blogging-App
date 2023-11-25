@@ -1,4 +1,5 @@
 import '../assets/styles/blogfeed.css';
+import '../assets/styles/global.css';
 import React, { useState } from 'react';
 
 function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {

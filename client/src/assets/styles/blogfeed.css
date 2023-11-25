@@ -100,11 +100,6 @@ h1{
     width: 100%; /* Full width for mobile devices */
 }
 
-/* Responsive styles for tablets and larger screens */
-@media only screen and (min-width: 600px) {
-    .col-s-1 {width: 8.33%;}
-}
-
 /* Responsive styles for desktops */
 @media only screen and (min-width: 768px) {
     .content {
@@ -136,7 +131,6 @@ h1{
         font-size: 20px;
     }
 
-    /* ... (other styles for desktops) ... */
 }
 
 .blog:hover{
@@ -260,12 +254,7 @@ h1{
     padding-right: 50px;
 }
 
-.sidebar input[type="text"], .sidebar input[type="number"] {
-    background-color: transparent;
-    border: none;
-    color: wheat;
-    transition: all 0.1s ease-in-out;
-}
+
 
 .sidebar input[type="submit"] {
     background-color: transparent;
@@ -290,10 +279,7 @@ h1{
     display: inline-block;
 }
 
-.sidebar input[type="text"]:focus , .sidebar input[type="number"]:focus{
-    outline: none;
-    border-bottom: 3px solid coral;
-}
+
 
 #goSearch{
 border: none;
