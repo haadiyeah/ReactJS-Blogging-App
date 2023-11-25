@@ -11,24 +11,24 @@ function Blog({ blog }) {
 
     function formatTimestamp(inputTimestamp) {
         const date = new Date(inputTimestamp);
-    
+
         //date components
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-    
+
         //time components
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
-    
+
         //formatted string
         const formattedString = `${year}-${month}-${day}, ${hours}:${minutes}`;
-    
+
         return formattedString;
     }
 
     blog.createdAt = formatTimestamp(blog.createdAt);
-    
+
     // console.log("blog");
     return (
         <li >
@@ -38,7 +38,7 @@ function Blog({ blog }) {
                 <div class="blogBrief">
                     <h4 class="blogTitle">{blog.title}</h4>
                     <p class="blogSubtitle">{blog.content}</p>
-                    <p class="blogSubtitle blogTimeStamp">{blog.createdAt + " by username123" }</p>
+                    <p class="blogSubtitle blogTimeStamp">{blog.createdAt + " by username123"}</p>
                     {/* <p>Owner: {blog.owner}</p>
                     <p>Average Rating: {blog.averageRating}</p> */}
                     {/* <p>Comments: {blog.comments}</p> */}

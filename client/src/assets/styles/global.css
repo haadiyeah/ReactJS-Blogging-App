@@ -1,0 +1,46 @@
+
+
+.App {
+    width:100%;
+    padding:0;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  
+  .checkbox {
+    margin: 5px;
+  }
+  
+  button {
+    margin-left: 20px;
+  }
+  
+  li p {
+    padding: 20px;
+  }
+  
+  #root{
+    width:100%;
+  }
+
+  .logo {
+    width: 70px;
+    margin: 10px;
+    height: auto;
+  }
+
+  

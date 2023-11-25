@@ -33,11 +33,8 @@ router.get('/', async (req, res) => {
     //default values=page 1, limit=10 per page
 
     const totalRecords = await Blog.countDocuments();
-    if (page && (page < 1 || (page - 1) * limit > totalRecords)) { //request violates field constraints, no.of items to skip over>total records
-      res.status(422).send('Illegal value of page encountered');
-    }
-    if (limit && (limit < 5 || limit > 100)) {
-      res.status(422).send('Illegal value of limit encountered');
+    if ((page && (page < 1 || (page - 1) * limit > totalRecords)) || (limit && (limit < 5 || limit > 100))) {
+      res.status(422).send('Illegal values encountered');
     }
 
     if (minRating && !isNaN(minRating)) {
@@ -92,7 +89,10 @@ router.get('/', async (req, res) => {
       return res.status(404).send('No blogs found');
     }
 
-    res.status(200).json(blogs); //send blogs (postS)in response.
+    const blogNo = await Blog.find(query).countDocuments(); //counting no. of blogs in db
+    const totalPages = Math.ceil(blogNo / limit); //total no. of pages
+
+    res.status(200).json({blogs, totalPages}); //send blogs (postS)in response.
 
   } catch (error) {
     console.log("ERROR \n ************ \n" + error);

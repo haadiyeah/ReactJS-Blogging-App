@@ -5,25 +5,32 @@ const Blog = require('../models/Blog');
 //endpoint to search for blog posts
 router.get('/', async (req, res) => {
     try {
-        const { keywords, author, sortBy, sortOrder } = req.query;
+        const { keywords, author, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
 
         //if there are no query parameters
-        if (!keywords && !author) {
+        if (!keywords && !author && !sortBy && !sortOrder ) {
             return res.status(400).json({ error: 'No search parameters provided' });
         }
 
         //query object 
         const query = {};
 
-        //if keywords is provided and is as an array
+       // if keywords is provided and is as an array
         if (Array.isArray(keywords) && keywords.length > 0) {
             query.$or = keywords.map(keyword => ({  //$or in mongodb: an array of conditions that are combined with OR
                 $or: [ //another OR object checking the keyword in title OR content
-                    { title: { $regex: new RegExp(keyword, 'i') } },
+                    { title: { $regex: new RegExp(keyword, 'i') } }, //i flag=case insesnitive
                     { content: { $regex: new RegExp(keyword, 'i') } },
                 ],
             }));
         }
+
+        // if (Array.isArray(keywords) && keywords.length > 0) {
+        //     query.$or = keywords.flatMap(keyword => keyword !== '' ? [
+        //         { title: { $regex: new RegExp(keyword, 'i') } },
+        //         { content: { $regex: new RegExp(keyword, 'i') } },
+        //     ] : []);
+        // }
 
         //if author is provided (as an ID)
         if (author) {
@@ -53,13 +60,19 @@ router.get('/', async (req, res) => {
         // Execute the search with sorting
         let searchResults = await Blog.find(query)
             .sort(sortOptions)
+            .skip((page - 1) * limit) //implements pagination by skipping over objects 
+            .limit(limit)
             .exec();
+      
 
         if (searchResults.length == 0) {
             res.status(404).send('No corresponding blog posts found');
         }
 
-        res.status(200).json(searchResults); //sending search results
+        const blogNo = await Blog.find(query).countDocuments(); //counting no. of blogs in db
+        const totalPages = Math.ceil(blogNo / limit); //total no. of pages,default 10
+
+        res.status(200).json({blogs: searchResults, totalPages}); //sending search results
     } catch (error) {
         console.error(error);
         res.status(500).send('Error searching for blog posts');
