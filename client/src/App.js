@@ -3,12 +3,15 @@ import './assets/styles/blogfeed.css';  //import css file
 import './assets/styles/global.css';
 import Home from './pages/Home';
 import Register from './pages/Register'
+import Blog from './pages/Blog';
+
 import Navbar from './components/Navbar'
 import Profile from './components/Profile'
 import Feed from './components/Feed'
 
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Outlet } from "react-router-dom"
+
 
 function Nav() {
     return (
@@ -25,7 +28,10 @@ function App() {
         <Routes>
             <Route path="/" element={<Nav />}>
                 <Route index element={<Home />} /> 
-                <Route path="blogs" element={<Home />} />  {/* for localhost:3000/blogs*/}
+                <Route path="blogs"  > 
+                     <Route index element={<Home />} /> 
+                     <Route path=":blogId" element={<Blog />} />
+                </Route>  {/* for localhost:3000/blogs*/}
                 
                 <Route path="users" >
                     <Route path="register" element={<Register />} />

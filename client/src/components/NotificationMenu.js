@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import useStore from '../store/store'; //zustand 
 import '../assets/styles/notification.css'
+import { formatNotifTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 
 function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
     const { token, setToken } = useStore(); //getting token
     const [notifications, setNotifications] = useState([]); //notifications array
-    const [showAll, setShowAll] = useState(false); 
+    const [showAll, setShowAll] = useState(false);
     const menuRef = useRef(); // Create a ref
     let id;
 
@@ -23,26 +24,11 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
                 .then(response => response.json())
                 .then(data => {
                     const formattedNotifications = data.map(notification => {
-                        let date = new Date(notification.createdAt);
-                        let now = new Date();
-                        let diffTime = Math.abs(now - date);
-                        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                        let timestamp;
-
-                        if (diffDays < 1) {
-                            const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
-                            if (diffHours < 1) { //not catering for minutes sorry:(
-                                timestamp = 'just now';
-                            } else {
-                                timestamp = `${diffHours} hr ago`;
-                            }
-                        } else {
-                            timestamp = `${diffDays} d ago`;
-                        }
+                       let timeStamp =formatNotifTimestamp(notification.createdAt);
                         return {
                             type: notification.type,
                             notifText: notification.notifText,
-                            date: timestamp
+                            date: timeStamp,
                         };
                     });
 
@@ -88,6 +74,7 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
 
             <ul>
                 {notifications.length > 0 ? (
+
                     (showAll ? notifications : notifications.slice(0, 5)).map((notification, index) => (
                         <li key={index} className='notificationBrief'>
                             {notification.type === 'comment' && '💬'}
@@ -96,13 +83,15 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
                             {notification.notifText} - <b className='notificationBriefDate'>{notification.date}</b>
                             <hr></hr>
                         </li>
-                    ))
+                        ))
                 ) : (
                     <li className='notificationBrief'>No notifs yet. Interact with some users to get rolling!</li>
                 )}
-                <li><button className='notifShowAll' onClick={() => setShowAll(!showAll)}>
-                    {showAll ? 'Show less' : 'Show all' }
-                </button></li>
+
+                {notifications.length > 5 ? ( <li><button className='notifShowAll' onClick={() => setShowAll(!showAll)}>
+                            {showAll ? 'Show less' : 'Show all'}
+                        </button></li>) : null}
+
             </ul>
         </div>
     )

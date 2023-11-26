@@ -1,5 +1,6 @@
 import React from 'react';
 import Blog from './Blog';
+import { Link } from 'react-router-dom';
 import '../assets/styles/blogfeed.css';
 
 function BlogFeed({ blogs }) {
@@ -17,7 +18,11 @@ function BlogFeed({ blogs }) {
             <h1>Fresh from the Blog!</h1>
             <ul class="blogFeedList">
                 {blogs.map(blog => {
-                    return <Blog blog={blog} key={blog.id}> </Blog>
+                    return(
+                        <Link to={`/blogs/${blog._id}`} key={blog._id}>
+                            <Blog blog={blog} />
+                        </Link>
+                    );
                 })}
             </ul>
         </div>

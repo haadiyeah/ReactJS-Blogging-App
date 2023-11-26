@@ -102,7 +102,7 @@ router.get('/', async (req, res) => {
     const blogNo = await Blog.find(query).countDocuments(); //counting no. of blogs in db
     const totalPages = Math.ceil(blogNo / limit); //total no. of pages
 
-    res.status(200).json({blogs, totalPages}); //send blogs (postS)in response.
+    res.status(200).json({ blogs, totalPages }); //send blogs (postS)in response.
 
   } catch (error) {
     console.log("ERROR \n ************ \n" + error);
@@ -113,17 +113,27 @@ router.get('/', async (req, res) => {
 //get a specific blog post by ID
 router.get('/:blogId', async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.blogId);
+    let blog = await Blog.findById(req.params.blogId);
     if (!blog) {
       return res.status(404).send('Blog post not found');
     }
-    
-      const user = await User.findById(blog.owner);
+
+    const user = await User.findById(blog.owner);
+    if (user) {
+      blog = blog.toObject();
+      blog.owner = user.username; //replace for display purposes (unchanged in db.)
+      //console.log(user.username + " is now " + blog.owner);
+    }
+
+    //Replace user id with username in comments for display
+    blog.comments = await Promise.all(blog.comments.map(async comment => {
+      const user = await User.findById(comment.user);
       if (user) {
-        blog = blog.toObject();
-        blog.owner = user.username; //replace for display purposes (unchanged in db.)
-        //console.log(user.username + " is now " + blog.owner);
+        // comment = comment.toObject();
+        comment.user = user.username;
       }
+      return comment;
+    }));
 
     //incase of success
     res.status(200).json(blog);
@@ -281,6 +291,7 @@ router.post('/comment/:blogId', authenticateToken, async (req, res) => {
 
     blog.comments.push(newComment); //updating the blog object
 
+
     //new comment notification
     //console.log("req user "+req.user.id);
     let commentorName = req.user.username;
@@ -306,9 +317,11 @@ router.post('/comment/:blogId', authenticateToken, async (req, res) => {
     //saving in dbs
     await notification.save();
     await blog.save();
+    // create a copy of newComment and replace user id with username for display purposes
+    const newCommentForResponse = { ...newComment, user: req.user.username };
 
     //success
-    res.status(200).send('Commented successfully');
+    res.status(200).json({ message: 'Commented successfully', newComment: newCommentForResponse });
   }
   catch (error) {
     console.log(error);

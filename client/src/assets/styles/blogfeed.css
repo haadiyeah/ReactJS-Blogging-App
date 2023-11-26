@@ -136,6 +136,10 @@ h1{
     padding-right: 20%;
     }
 
+    #submitComment {
+        width: 20%;
+    }
+
 }
 
 .blog:hover{
@@ -144,12 +148,15 @@ h1{
 }
 
 
+
+
 .blogBrief {
     width: 100%;
     margin-top:  auto;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content:  flex-end;
+   
     flex-direction: column;
     padding: 20px;
     word-wrap:break-word ;
@@ -159,12 +166,14 @@ h1{
 .blogSubtitle {
     padding: 0px;
     margin: 0px;
+    text-decoration: none;
     color: rgb(255, 255, 255);
 }
 
 .blogTitle {
     padding: 0px;
     margin: 0px;
+    text-decoration: none;
     font-size: 30px;
     color: white;
 }
