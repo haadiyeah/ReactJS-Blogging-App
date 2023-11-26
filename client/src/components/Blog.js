@@ -23,8 +23,7 @@ function Blog({ blog }) {
                 <div class="blogBrief">
                     <h4 class="blogTitle">{blog.title}</h4>
                     <p class="blogSubtitle">
-                        {blog.blurb ? blog.blurb : `${blog.content.substring(0, 90)}...`}
-                    </p>
+                    {blog.blurb ? blog.blurb : (blog.content.length > 90 ? `${blog.content.substring(0, 90)}...` : blog.content)}                    </p>
                     <p class="blogSubtitle blogTimeStamp">{blog.createdAt + " by " + blog.owner}</p>
                     {/* <p>Owner: {blog.owner}</p>
                     <p>Average Rating: {blog.averageRating}</p> */}
