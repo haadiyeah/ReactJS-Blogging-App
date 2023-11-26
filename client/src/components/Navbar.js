@@ -1,12 +1,16 @@
-import React from 'react';
-import { Route, Routes, Link } from "react-router-dom"
+import React, { useState } from 'react';
+import { Link } from "react-router-dom"
 import logo from '../assets/images/hyrulegazettelogo.png';
 import '../assets/styles/global.css';
+import '../assets/styles/notification.css';
 import { jwtDecode } from 'jwt-decode';
 import useStore from '../store/store';
+import NotificationMenu from './NotificationMenu';
 
 function Navbar() {
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const { token, setToken } = useStore();
+    
     let username = '';
 
     if (token) {
@@ -42,8 +46,12 @@ function Navbar() {
                 {!token && <button class="btn btn-primary"> <Link className="link" to="/users/register" >Sign up</Link> </button>}
                 {!token && <button class="btn btn-secondary"><Link className="link" to="/users/register" >Log in</Link></button>}
                 {token && <button class="btn btn-secondary">➕</button> /* notif */}
-                {token && <button class="btn btn-secondary">🔔</button> /* notif */}
+                {token && <button id="notifications" class="btn btn-secondary" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>🔔</button>}
+                {isNotificationsOpen && (
+                 <NotificationMenu isNotificationsOpen={isNotificationsOpen} setIsNotificationsOpen={setIsNotificationsOpen} />
+                )}
                 {token && <button class="btn btn-secondary"><Link className="link" to="/users/profile" >👤</Link></button> /* notif */}
+        
                 {token && <button class="btn btn-secondary" onClick={() => {
                     if (window.confirm('Are you sure you want to log out?')) {
                         setToken('');

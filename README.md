@@ -1,1 +1,2 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/U8VHH9NX)
+# Hyrule Gazette - The Ultimate Blog for Zelda Fans!
+On this blogging site, you'll find everything you need to know about Zelda games and lore. Share your opinions with amazing prompts and read others!

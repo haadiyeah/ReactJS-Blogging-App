@@ -117,6 +117,14 @@ router.get('/:blogId', async (req, res) => {
     if (!blog) {
       return res.status(404).send('Blog post not found');
     }
+    
+      const user = await User.findById(blog.owner);
+      if (user) {
+        blog = blog.toObject();
+        blog.owner = user.username; //replace for display purposes (unchanged in db.)
+        //console.log(user.username + " is now " + blog.owner);
+      }
+
     //incase of success
     res.status(200).json(blog);
   } catch (error) {

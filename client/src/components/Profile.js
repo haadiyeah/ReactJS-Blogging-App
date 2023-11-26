@@ -66,7 +66,7 @@ function Profile() {
 
     return (
         <div className="registerContent">
-            <div id="register">
+            <div >
                 <h3>Edit Profile Details</h3>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="username">Username: </label>
@@ -84,6 +84,10 @@ function Profile() {
                     <input type="submit" value="Make Changes" />
                     <p className="errortext" hidden={!errorMessage}>{errorMessage}</p>
                 </form>
+            </div>
+            <div >
+                <h3>Your Blog Posts</h3>
+               
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Register from './pages/Register'
 import Navbar from './components/Navbar'
 import Profile from './components/Profile'
+import Feed from './components/Feed'
 
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Outlet } from "react-router-dom"
@@ -22,7 +23,6 @@ function Nav() {
 function App() {
     return (
         <Routes>
-            {/* <Route path="/users/register" element={<Home />} /> */}
             <Route path="/" element={<Nav />}>
                 <Route index element={<Home />} /> 
                 <Route path="blogs" element={<Home />} />  {/* for localhost:3000/blogs*/}
@@ -30,9 +30,10 @@ function App() {
                 <Route path="users" >
                     <Route path="register" element={<Register />} />
                     <Route path="profile" element={<Profile />} />
+                    <Route path="feed" element={<Feed />} />
+                </Route> 
 
                 
-                </Route> 
                 {/* <Route path=":id" element={<Book />} />
                 <Route path="new" element={<NewBook />} /> */}
             </Route>

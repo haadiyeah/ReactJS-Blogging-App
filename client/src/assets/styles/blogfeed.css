@@ -131,6 +131,11 @@ h1{
         font-size: 20px;
     }
 
+    .feed{
+        padding-left: 20%;
+    padding-right: 20%;
+    }
+
 }
 
 .blog:hover{
@@ -256,6 +261,7 @@ h1{
 
 
 
+
 .sidebar input[type="submit"] {
     background-color: transparent;
     border: 1px solid wheat;
@@ -280,7 +286,7 @@ h1{
 }
 
 
-
+/* sidebar button to apply search filter etc */
 #goSearch{
 border: none;
 border-radius: 30px;
@@ -294,4 +300,9 @@ transition: all 0.1s ease-in-out;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     font-weight:500;
+}
+
+.feed{
+    padding-top:20px;
+    
 }
