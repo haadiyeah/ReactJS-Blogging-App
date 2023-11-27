@@ -104,6 +104,8 @@ h1{
 @media only screen and (min-width: 768px) {
     .content {
         flex-direction: row;
+        padding-left: 60px;
+        padding-right: 60px;
     }
 
     .sidebar {
@@ -119,12 +121,6 @@ h1{
 
     .blogfeed {
         width: 80%;
-    }
-
-    .content {
-        padding: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
     }
 
     h1 {

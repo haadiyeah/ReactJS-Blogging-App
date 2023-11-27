@@ -84,6 +84,8 @@ function Register() {
         <div className="registerContent">
 
             <div id="register">
+                <h5>Register</h5>
+                <hr></hr>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="username">Username</label>
                     <input type="text" id="username" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -100,6 +102,8 @@ function Register() {
             </div>
 
             <div id="login">
+            <h5>Log in</h5>
+            <hr></hr>
                 <form onSubmit={onLogin}>
                     <label htmlFor="email">Email</label>
                     <input type="email" id="emailLogin" name="email" placeholder="Email" value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} />

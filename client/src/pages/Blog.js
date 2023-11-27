@@ -5,7 +5,8 @@ import { formatTimestamp } from '../utils/utils'; //import formatTimestamp funct
 import { formatNotifTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 import useStore from '../store/store'; //zustand 
 import defaultImg from '../assets/images/default_image.jpg'; //import default image
-import Rating from '../components/Rating';
+import CommentSection from '../components/CommentSection';
+import RatingArea from '../components/RatingArea';
 
 //Blog page to display details of a particular blog
 //On the route /blogs/:blogId
@@ -13,11 +14,9 @@ function Blog() {
     const { token, setToken } = useStore(); //getting token
     const [blog, setBlog] = useState(null); //stores the object
     const { blogId } = useParams();//get from url
-    const [comment, setComment] = useState(''); //for the new comment
-    const commentRef = useRef(); // reference to the textarea element
     const [imageUrl, setImageUrl] = useState(defaultImg); // state variable for the image URL
-    const [rating, setRating] = useState(0);
-    const [message, setMessage] = useState(''); // state variable for the message
+    const [message, setMessage] = useState(''); // state variable for the message 
+    const [isFollowing, setIsFollowing] = useState(false); // state variable for the follow status
 
     useEffect(() => {
         fetch(`http://localhost:3000/blogs/${blogId}`)
@@ -37,61 +36,29 @@ function Blog() {
             .catch(error => console.error('Error:', error));
     }, [blogId]);
 
-
-    const handleCommentChange = (event) => {
-        setComment(event.target.value);
-    };
-
-
-    const handleRatingChange = (newRating) => {
-        setRating(newRating);
-    };
-
-    
-    const handleRatingSubmit = async () => {
-
+    const handleFollow = async () => {
         if(!token){
-            setMessage("You must log in to rate this blog.");
+            setMessage("You must log in to follow or unfollow this blogger.");
             return;
         }
-
-        const response = await fetch(`http://localhost:3000/blogs/rate/${blogId}`, {
+    
+        const endpoint = isFollowing ? 'unfollow' : 'follow'; //SO SMART HAHAHHAUEUEUE
+        const response = await fetch(`http://localhost:3000/interaction/${endpoint}/${blog.owner}`, {
             method: 'POST',
             headers: {
                 'Authorization': `${token}`,
-                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ rating }),
         });
-
+    
+        const message = await response.text();
+        setMessage(message);
         if (response.ok) {
-            const message = await response.text();
-            setMessage(message);
+            setIsFollowing(!isFollowing); // toggle the follow status
         } else {
-            console.error('Error:', await response.text());
-        }
-    };
-
-    const handleCommentSubmit = async (event) => {
-        event.preventDefault();
-
-        const response = await fetch(`http://localhost:3000/blogs/comment/${blogId}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text: comment }),
-        });
-
-        if (response.ok) {
-            const { newComment } = await response.json();
-            console.log("NEW" + newComment.user)
-            setBlog({ ...blog, comments: [newComment, ...blog.comments] }); //update the comments array
-
-            setComment(''); // clear the textarea
-        } else {
-            console.error('Error:', await response.text());
+            if(message.includes('already following'))
+            setIsFollowing(true);
+           
+            console.error('Error:', message);
         }
     };
 
@@ -109,7 +76,7 @@ function Blog() {
                 <div class="blogHeader" key={blog.id} style={{ backgroundImage: `url("${imageUrl}")` }}>
                     <div class="blogBrief">
                         <h4 class="blogTitle">{blog.title} </h4>
-                        <b class="blogSubtitle ratingtitle">  { "⭐ " + blog.averageRating.toFixed(2) }</b>                        <p class="blogSubtitle">{blog.blurb ? blog.blurb : null}</p>
+                        <b class="blogSubtitle ratingtitle">  {"⭐ " + blog.averageRating.toFixed(2)}</b>                        <p class="blogSubtitle">{blog.blurb ? blog.blurb : null}</p>
                         <p class="blogSubtitle blogDetailTimestamp">{"Posted by " + blog.owner + " , " + formatNotifTimestamp(blog.createdAt)}</p>
                         <p class="blogSubtitle blogDetailTimestamp">{formatTimestamp(blog.createdAt)}</p>
                     </div>
@@ -118,54 +85,19 @@ function Blog() {
                 {/*Actual blog content */}
                 <div class="blogContent">
                     <p class="blogText">{blog.content}</p>
+                    <hr />
+                    {"By " + blog.owner}
+                    <button className='btn btn-secondary' onClick={handleFollow} disabled={message == 'Cannot follow yourself'}>
+                        {isFollowing ? 'Unfollow' : 'Follow'}
+                    </button>
+                    <p className='commentText'>{message}</p>
                 </div>
             </div>
 
-            <div class="blogDetail ratingArea">
-                <h4>Rate this blog</h4>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Rating onRatingChange={handleRatingChange} />
-                    <button id="submitRating" onClick={handleRatingSubmit}>✔</button>
-                </div>
-                <p class="commentText" style={{margin:'0', float: 'right'}}>{message}</p>
-            </div>
+            <RatingArea blogId={blogId} />
 
-            <div id="commentSection">
-                <h4>Comments</h4>
-                <ul >
-                    {blog.comments.length === 0 ? <i>No comments yet. Why not start the conversation?<hr></hr> </i> :
+            <CommentSection blog={blog} setBlog={setBlog} blogId={blogId} />
 
-                        blog.comments.map((comment) => (
-                            <li key={comment.id}>
-                                <div class="comment">
-                                    <b class="commenter"> {comment.user} </b>
-                                    <p class="commentText">{comment.text}</p>
-                                </div>
-                                <hr></hr>
-                            </li>
-                        ))
-                    }
-                </ul>
-
-                {token ? <h4>Leave a Comment</h4> : <i>You must log in to leave a comment.</i>}
-                {/* <h4>Leave a Comment</h4> */}
-
-                {token ? <div class="commentForm">
-                    <form onSubmit={handleCommentSubmit}>
-                        <textarea
-                            id="commentArea"
-                            placeholder="Type your thoughts..."
-                            value={comment}
-                            onChange={handleCommentChange}
-                            ref={commentRef}
-                            required
-                        />
-                        <br></br>
-                        <input id='submitComment' type="submit" value="Submit" />
-                    </form>
-                </div> : null}
-
-            </div>
         </div>
     )
 }

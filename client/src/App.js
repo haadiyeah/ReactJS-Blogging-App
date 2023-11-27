@@ -4,6 +4,7 @@ import './assets/styles/global.css';
 import Home from './pages/Home';
 import Register from './pages/Register'
 import Blog from './pages/Blog';
+import CreatePost from './pages/CreatePost';
 
 import Navbar from './components/Navbar'
 import Profile from './components/Profile'
@@ -39,7 +40,8 @@ function App() {
                     <Route path="feed" element={<Feed />} />
                 </Route> 
 
-                
+                <Route path="create" element={<CreatePost />} />
+
                 {/* <Route path=":id" element={<Book />} />
                 <Route path="new" element={<NewBook />} /> */}
             </Route>

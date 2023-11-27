@@ -127,5 +127,10 @@
 .ratingtitle{
     color:white;
     opacity: 0.8;
-    
+
+}
+
+#ratingMsg {
+    margin-top: 5px;
+    transition: all 0.3s ease-in-out;
 }

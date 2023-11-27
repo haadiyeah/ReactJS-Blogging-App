@@ -8,7 +8,7 @@
 .registerContent {
     display: flex;
     width: 100%;
-    height:400px;
+    height:100%;
     align-items: center;
     justify-content: center;
     padding-top: 20px;
@@ -25,9 +25,11 @@
     height: 100%;
     border: 1px solid rgb(101, 86, 59);
     border-radius: 20px;
+    box-sizing: border-box;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
+  flex:1;
   margin: 10px;
 }
 
@@ -44,6 +46,14 @@ input[type="text"], input[type="password"], input[type="email"] {
 
 }
 
+textarea {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: wheat;
+    
+
+}
 input[type="submit"]:hover{
     background-color: wheat;
     color: rgb(72, 48, 39);
@@ -51,4 +61,10 @@ input[type="submit"]:hover{
 
 .errortext {
     color: red;
+}
+
+.generatePrompt {
+  margin-bottom: 10px;
+  width: 30%;
+  margin-left: 0px;
 }

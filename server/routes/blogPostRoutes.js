@@ -8,18 +8,19 @@ const User = require('../models/User');
 //Create a new blog post
 router.post('/new', authenticateToken, async (req, res) => {
   try {
-
     const newBlog = new Blog({
       title: req.body.title,
       content: req.body.content,
+      image: req.body.image ? req.body.image : null,
+      blurb: req.body.blurb ? req.body.blurb : null,
       owner: req.user.id //assigning owner (req.user will be assigned in auethenticate token)
     });
 
     const savedBlog = await newBlog.save();
-    res.status(200).send('Blog post was uploaded!');
+    res.status(200).json({ message: 'Blog post was uploaded!', id: savedBlog._id });
   } catch (error) {
     console.log("ERROR \n ************ \n" + error);
-    res.status(500).send('Error creating a new blog post');
+     res.status(200).json({ message: 'Error occurred, please tryagain' });
   }
 });
 

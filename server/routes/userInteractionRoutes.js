@@ -10,7 +10,13 @@ const Notification = require('../models/Notification');
 router.post('/follow/:userId', authenticateToken, async (req, res) => {
     try {
         //getting the blogger
-        const bloggerToFollow = await User.findById(req.params.userId);
+        //If its not a valid mongodb id
+        let bloggerToFollow;
+        if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+            bloggerToFollow = await User.findOne({ username: req.params.userId });
+        } else {
+            bloggerToFollow = await User.findById(req.params.userId);
+        }
 
         if (!bloggerToFollow) {
             return res.status(404).send('Blogger not found');
@@ -59,7 +65,12 @@ router.post('/follow/:userId', authenticateToken, async (req, res) => {
 router.post('/unfollow/:userId', authenticateToken, async (req, res) => {
     try {
         //Getting the blogger to unfollow
-        const bloggerToUnfollow = await User.findById(req.params.userId);
+        let bloggerToUnfollow;
+        if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+            bloggerToUnfollow = await User.findOne({ username: req.params.userId });
+        } else {
+            bloggerToUnfollow = await User.findById(req.params.userId);
+        }
 
         if (!bloggerToUnfollow) {
             return res.status(404).send('Blogger not found');
