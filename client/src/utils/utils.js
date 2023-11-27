@@ -21,11 +21,11 @@ export function formatNotifTimestamp(inputTimestamp) {
     let date = new Date(inputTimestamp);
     let now = new Date();
     let diffTime = Math.abs(now - date);
-    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // Use Math.floor here
     let timestamp;
 
     if (diffDays < 1) {
-        const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60)); // Use Math.floor here
         if (diffHours < 1) { //not catering for minutes sorry:(
             timestamp = 'just now';
         } else {

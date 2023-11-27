@@ -22,7 +22,6 @@ function CommentSection({blog, setBlog, blogId}) {
 
         if (response.ok) {
             const { newComment } = await response.json();
-            console.log("NEW" + newComment.user)
             setBlog({ ...blog, comments: [newComment, ...blog.comments] }); //update the comments array
 
             setComment(''); // clear the textarea

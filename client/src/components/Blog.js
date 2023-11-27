@@ -5,16 +5,9 @@ import myImage from '../assets/images/default_image.jpg'; //import default image
 import { formatTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 
 function Blog({ blog }) {
-    let url;
-    if (blog.image) {
-        url = blog.image;
-    } else {
-        url = myImage;
-    }
-
+    let url = blog.image? blog.image : myImage; 
     blog.createdAt = formatTimestamp(blog.createdAt);
 
-    // console.log("blog");
     return (
         <li >
             <div class="blog" key={blog.id} style={{

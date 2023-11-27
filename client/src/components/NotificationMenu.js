@@ -55,31 +55,14 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
 
     return (
         <div ref={menuRef} className={`notifications-menu ${isNotificationsOpen ? 'open' : ''}`}>
-            {/* <ul>
-            {notifications.length > 0 ? (
-                notifications.slice(0, 5).map((notification, index) => (
-                    <li key={index} className='notificationBrief'>
-                        {notification.type === 'comment' && '💬'}
-                        {notification.type === 'follower' && '👥'}
-                        {notification.type === 'rating' && '⭐'}
-                        {notification.notifText} - <b className='notificationBriefDate'>{notification.date}</b>
-                        <hr></hr>
-                    </li>
-                ))
-            ) : (
-                <li className='notificationBrief'>No notifs yet. Interact with some users to get rolling!</li>
-            )}
-            <li><button className='notifShowAll'>Show all</button> </li>
-        </ul> */}
-
             <ul>
                 {notifications.length > 0 ? (
 
                     (showAll ? notifications : notifications.slice(0, 5)).map((notification, index) => (
                         <li key={index} className='notificationBrief'>
-                            {notification.type === 'comment' && '💬'}
-                            {notification.type === 'follower' && '👥'}
-                            {notification.type === 'rating' && '⭐'}
+                            {notification.type === 'comment' && '💬 '}
+                            {notification.type === 'follower' && '👥 '}
+                            {notification.type === 'rating' && '⭐ '}
                             {notification.notifText} - <b className='notificationBriefDate'>{notification.date}</b>
                             <hr></hr>
                         </li>

@@ -10,10 +10,11 @@ const Notification = require('../models/Notification');
 router.post('/follow/:userId', authenticateToken, async (req, res) => {
     try {
         //getting the blogger
-        //If its not a valid mongodb id
+
         let bloggerToFollow;
-        if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+        if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {  //If its not a valid mongodb id, it must be a username
             bloggerToFollow = await User.findOne({ username: req.params.userId });
+            req.params.userId = bloggerToFollow._id; //resetting it for later purposes
         } else {
             bloggerToFollow = await User.findById(req.params.userId);
         }
@@ -21,6 +22,8 @@ router.post('/follow/:userId', authenticateToken, async (req, res) => {
         if (!bloggerToFollow) {
             return res.status(404).send('Blogger not found');
         }
+
+        console.log("you  requested to follow " + bloggerToFollow.username);
 
         //if trying to follow urself (...seriously??)
         if (req.params.userId == req.user.id) {
@@ -82,7 +85,6 @@ router.post('/unfollow/:userId', authenticateToken, async (req, res) => {
         }
 
         //if not following the blogger
-        console.log(req.user.id);
         if (!bloggerToUnfollow.followers.includes(req.user.id)) {
             return res.status(422).send('You are not following this blogger');
         }
@@ -120,7 +122,6 @@ router.post('/unfollow/:userId', authenticateToken, async (req, res) => {
 //get all notifications of a user (read/unread)
 router.get('/notifications', authenticateToken, async (req, res) => {
     try {
-        //console.log(req.user.id);
         const notifications = await Notification.find({ user: req.user.id }, 'type notifText details createdAt')
             .sort({ createdAt: -1 }) //sort by creation date in descending order
 
@@ -167,15 +168,29 @@ router.put('/notifications/read/:notificationId', authenticateToken, async (req,
 //get user's feed with posts from followed bloggers
 router.get('/feed', authenticateToken, async (req, res) => {
     try {
-        let userId = req.user._id;
+        let userId = req.user.id;
 
         //Find bloggers whose followers array contains the user ID,i.e, the user follows them
         let bloggers = await User.find({ followers: { $in: userId } });
+
+        if (!bloggers) {
+            console.log("NO BLOGGERS FOUND");
+        }
         let bloggersIds = bloggers.map(blogger => blogger._id);//get their ids
 
         //Get blog posts from the followed bloggers
         const feed = await Blog.find({ owner: { $in: bloggersIds } })
             .sort({ createdAt: -1 }); // Sort by creation date in descending order
+
+        //Replace the blogger's ID with their username for display
+        feed = await Promise.all(feed.map(async blog => {
+            const user = await User.findById(blog.owner);
+            if (user) {
+                blog = blog.toObject();
+                blog.owner = user.username; //replace for display purposes
+            }
+            return blog;
+        }));
 
         res.status(200).json(feed); //return feed in json form
     } catch (error) {

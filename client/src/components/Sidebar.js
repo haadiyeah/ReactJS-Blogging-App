@@ -38,7 +38,6 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
             fetchString += `&author=${searchAuthor}`
         }
 
-        console.log("FETCHING: " + fetchString)
 
         fetch(fetchString)
             .then(response => {
@@ -63,7 +62,6 @@ function Sidebar({ setBlogs, setLimit, limit, setPage, setTotalPages}) {
                 console.error('Error message:', error.message);
             });
 
-            console.log(keywordsArray);
     };
 
     return (

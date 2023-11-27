@@ -8,6 +8,7 @@ const User = require('../models/User');
 //Create a new blog post
 router.post('/new', authenticateToken, async (req, res) => {
   try {
+    console.log("At server side image: " + req.body.image);
     const newBlog = new Blog({
       title: req.body.title,
       content: req.body.content,
@@ -73,10 +74,10 @@ router.get('/', async (req, res) => {
         sortvalue = 1;
       }
       sortOptions[sortBy] = sortvalue; //setting attribute of sortOptions object, for example { title: 1 }, acts as mongodb query
+    } else {
+      sortOptions.createdAt = -1; //default sort by createdAt descending
     }
 
-    // console.log(" * * * * * * * * * QUERY * * * * * * *  * *");
-    // console.log(query);
 
     //find blogs which match
     //use "await" to make sure whole query executes before assigning
@@ -95,7 +96,6 @@ router.get('/', async (req, res) => {
       if (user) {
         blog = blog.toObject();
         blog.owner = user.username; //replace for display purposes
-        //console.log(user.username + " is now " + blog.owner);
       }
       return blog;
     }));
@@ -123,7 +123,6 @@ router.get('/:blogId', async (req, res) => {
     if (user) {
       blog = blog.toObject();
       blog.owner = user.username; //replace for display purposes (unchanged in db.)
-      //console.log(user.username + " is now " + blog.owner);
     }
 
     //Replace user id with username in comments for display
@@ -294,7 +293,6 @@ router.post('/comment/:blogId', authenticateToken, async (req, res) => {
 
 
     //new comment notification
-    //console.log("req user "+req.user.id);
     let commentorName = req.user.username;
     let notifString = commentorName + " just commented on your post! ";
 

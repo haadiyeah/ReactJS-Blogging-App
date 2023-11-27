@@ -1,46 +1,46 @@
-.newBlogForm {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
+
+
+#createPostForm input[type="text"], #createPostForm input[type="url"] {
+    border-bottom: 1px solid rgba(245, 222, 179, 0.566);
+    width: 90%;
+    transition: all 0.3 ease-in-out;
 }
 
-.newBlogForm input[type="text"], .newBlogForm input[type="url"] {
-    border-bottom: 1px solid wheat;
-    width: 100%;
-}
-
-.newBlogForm textarea {
-    border: 1px solid wheat;
-    background-color: transparent;
+#createPostForm input[type="text"]:focus ,  #createPostForm input[type="url"]:focus{
     outline: none;
-    border: none;
-    background-color: transparent;
-    outline: none;
-    width: 100%;
+    border-bottom: 3px solid coral;
+  }
+  
 
-
-}
-
-.newBlogForm textarea:focus {
-    outline: none;
-    border: 1px solid coral;
-}
-
-
-.createPostFormField {
-    width: 100%;
-    display:flex;
-    height: 20px;
-    
-}
-
-.newBlogForm form {
-    display: flex;
-    flex-direction: column;
-}
 
 #createPostForm {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+#createPostForm label {
+    font-weight: bold;
+}
+
+#createBlogBtn {
+    width:100%;
+}
+
+#createPostForm textarea:focus {
+    border: 2px solid coral;
+    outline: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #createBlogBtn{
+       margin-top: 20px;
+       margin-bottom: 20px;
+    }
+}
+
+.generatePrompt{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
 }

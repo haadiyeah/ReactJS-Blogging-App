@@ -25,7 +25,7 @@ function Feed() {
         }
         return response.json();
       })
-      .then(data => { setBlogs(data);  })
+      .then(data => { setBlogs(data); })
       .catch(error => {
         console.error('Fetch error:', error);
         console.error('Error name:', error.name);
@@ -33,21 +33,16 @@ function Feed() {
         setError(error);
       });
     } else {
-        return (
-            <div>
-                <p class="errortext">An error occurred! You are not signed in correctly</p>
-            </div>
-        )
+        setError("You are not signed in");
     }
 }, [token]);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+
+
   return (
     <div className="feed">
         <h1>Your Feed</h1>
-        { blogs.length==0 ? <p>No blogs are in your feed just yet. Try following some bloggers first!</p> :
+        { (blogs.length==0 || error) ? <p>No blogs are in your feed just yet. Try following some bloggers first!</p> :
         <BlogFeed blogs={blogs} /> }
     </div>
   )

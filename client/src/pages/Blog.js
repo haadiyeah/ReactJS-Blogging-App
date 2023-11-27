@@ -67,7 +67,6 @@ function Blog() {
         return <div className="loading">Loading...</div>;
     }
 
-    // console.log("blog");
     return (
         <div className="blogContainer">
 

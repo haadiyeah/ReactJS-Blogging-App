@@ -68,7 +68,6 @@ function Register() {
             .then(data => {
                 if (data.token) {
                     setToken(data.token);
-                    console.log("SEETTTEDD TOKEN!");
                     navigate('/blogs'); //redirect to /blogs page
                 } else {
                     setErrorMessage2(data);
