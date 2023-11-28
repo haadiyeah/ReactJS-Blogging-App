@@ -74,7 +74,7 @@ function Register() {
                 }
             })
             .catch(error => {
-                setErrorMessage2(error.message);
+                setErrorMessage2("Invalid input, please try again");
             });
     };
 
