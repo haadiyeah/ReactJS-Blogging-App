@@ -179,7 +179,7 @@ router.get('/feed', authenticateToken, async (req, res) => {
         let bloggersIds = bloggers.map(blogger => blogger._id);//get their ids
 
         //Get blog posts from the followed bloggers
-        const feed = await Blog.find({ owner: { $in: bloggersIds } })
+        let feed = await Blog.find({ owner: { $in: bloggersIds } })
             .sort({ createdAt: -1 }); // Sort by creation date in descending order
 
         //Replace the blogger's ID with their username for display

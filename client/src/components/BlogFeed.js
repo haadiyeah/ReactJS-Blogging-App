@@ -3,7 +3,7 @@ import Blog from './Blog';
 import { Link } from 'react-router-dom';
 import '../assets/styles/blogfeed.css';
 
-function BlogFeed({ blogs }) {
+function BlogFeed({ blogs, flag }) {
     if(!blogs) {
         return (
             <div className="blogfeed">
@@ -18,9 +18,8 @@ function BlogFeed({ blogs }) {
             <ul class="blogFeedList">
                 {blogs.map(blog => {
                     return(
-                        <Link to={`/blogs/${blog._id}`} key={blog._id}>
-                            <Blog blog={blog} />
-                        </Link>
+                       
+                            <Blog blog={blog} flag={flag} />
                     );
                 })}
             </ul>

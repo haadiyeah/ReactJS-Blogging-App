@@ -180,6 +180,7 @@ router.put('/:blogId', authenticateToken, async (req, res) => {
 //Delete a blog post (only the owner can delete)
 router.delete('/:blogId', authenticateToken, async (req, res) => {
   try {
+    console.log("PARAMS" + req.params.blogId);
     const blog = await Blog.findById(req.params.blogId);
     if (!blog) {//blog is undefined, null, or some other falsy value
       return res.status(404).send('Blog post not found');//wrong id
@@ -325,6 +326,17 @@ router.post('/comment/:blogId', authenticateToken, async (req, res) => {
   catch (error) {
     console.log(error);
     res.status(500).send('Error commenting on the blog post'); //status code for internal server error
+  }
+});
+
+//blogs by me!
+router.get('/by/me', authenticateToken, async (req, res) => {
+  try {
+    const blogs = await Blog.find({ owner: req.user.id });
+    res.status(200).json(blogs);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Error searching for blog posts');
   }
 });
 

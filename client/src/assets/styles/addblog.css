@@ -2,7 +2,7 @@
 
 #createPostForm input[type="text"], #createPostForm input[type="url"] {
     border-bottom: 1px solid rgba(245, 222, 179, 0.566);
-    width: 90%;
+    width: 95%;
     transition: all 0.3 ease-in-out;
 }
 

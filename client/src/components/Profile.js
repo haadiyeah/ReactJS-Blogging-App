@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import useStore from '../store/store';//zustand` 
 import { useNavigate } from 'react-router-dom';
+import BlogFeed from '../components/BlogFeed';
 
 function Profile() {
     const { token, setToken } = useStore();
@@ -14,6 +15,7 @@ function Profile() {
     const [errorMessage, setErrorMessage] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [id, setid] = useState('');
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -22,6 +24,7 @@ function Profile() {
             setUsername(decodedToken.username);
             setEmail(decodedToken.email);
             setRole(decodedToken.role);
+            setid(decodedToken.id);
         } else {
             return (
                 <div>
@@ -30,6 +33,23 @@ function Profile() {
             )
         }
     }, [token]);
+
+    const [blogs, setBlogs] = useState(null);
+    useEffect(() => {
+        fetch(`http://localhost:3000/blogs/by/me`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            setBlogs(data);
+        }).catch(error => console.error('Error:', error));
+    }, [blogs]);
+
+
     const onSubmit = async (event) => {
         event.preventDefault();
 
@@ -65,7 +85,7 @@ function Profile() {
 
 
     return (
-        <div className="registerContent">
+        <div className="registerContent profileContainer">
             <div >
                 <h3>Edit Profile Details</h3>
                 <form onSubmit={onSubmit}>
@@ -85,9 +105,9 @@ function Profile() {
                     <p className="errortext" hidden={!errorMessage}>{errorMessage}</p>
                 </form>
             </div>
-            <div >
+            <div id="yourBlogPosts">
                 <h3>Your Blog Posts</h3>
-               
+                <BlogFeed blogs={blogs} flag={true} />
             </div>
         </div>
     )

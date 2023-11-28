@@ -75,7 +75,8 @@ function Blog() {
                 <div class="blogHeader" key={blog.id} style={{ backgroundImage: `url("${imageUrl}")` }}>
                     <div class="blogBrief">
                         <h4 class="blogTitle">{blog.title} </h4>
-                        <b class="blogSubtitle ratingtitle">  {"⭐ " + blog.averageRating.toFixed(2)}</b>                        <p class="blogSubtitle">{blog.blurb ? blog.blurb : null}</p>
+                        <b class="blogSubtitle ratingtitle">  {"⭐ " + blog.averageRating.toFixed(2)}</b>                  
+                        <p class="blogSubtitle">{blog.blurb ? blog.blurb : null}</p>
                         <p class="blogSubtitle blogDetailTimestamp">{"Posted by " + blog.owner + " , " + formatNotifTimestamp(blog.createdAt)}</p>
                         <p class="blogSubtitle blogDetailTimestamp">{formatTimestamp(blog.createdAt)}</p>
                     </div>

@@ -51,7 +51,7 @@ textarea {
     border-radius: 10px;
     background-color: transparent;
     color: wheat;
-    
+
 
 }
 input[type="submit"]:hover{
@@ -68,3 +68,9 @@ input[type="submit"]:hover{
   width: 30%;
   margin-left: 0px;
 }
+
+.profileContainer {
+  display: flex;
+  align-items: self-start;
+}
+

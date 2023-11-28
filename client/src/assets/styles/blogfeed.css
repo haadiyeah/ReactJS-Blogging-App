@@ -96,6 +96,16 @@ h1{
     margin:0px;
 }
 
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.registerContent div{
+    width: 100%;
+}
+
+
 .blogfeed {
     width: 100%; /* Full width for mobile devices */
 }
@@ -106,6 +116,16 @@ h1{
         flex-direction: row;
         padding-left: 60px;
         padding-right: 60px;
+    }
+
+    #yourBlogPosts{
+        width: 80% !important;
+    }
+
+
+    .profileContainer {
+        display: flex;
+        flex-direction: row;
     }
 
     .sidebar {

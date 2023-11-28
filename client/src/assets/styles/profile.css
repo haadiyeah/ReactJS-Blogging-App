@@ -1,0 +1,52 @@
+#yourBlogPosts .blogfeed h1 {
+    display: none;
+  }
+  
+  #yourBlogPosts .blogfeed {
+    border: none;
+    padding: 0;
+  }
+
+  .modifybtns {
+    display: flex;
+    width: 100%;
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0px;
+    flex-direction: row !important;
+  }
+
+#yourBlogPosts .blog {
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.modifybtns button {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: wheat;
+    transition: all 0.1s ease-in-out;
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 0px;
+    border: 1px solid wheat;
+}
+
+.modifybtns button:hover {
+    background-color: wheat;
+    color: rgb(72, 48, 39);
+}
+
+
+#yourBlogPosts .blogTimeStamp {
+    display: none;
+  }
+  
+
+  #yourBlogPosts li {
+    margin-bottom: 30px;
+  }

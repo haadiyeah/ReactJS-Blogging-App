@@ -26,11 +26,6 @@ router.get('/', async (req, res) => {
             }));
         }
 
-        //if author is provided (as an ID)
-        // if (author) {
-        //     query.owner = author; //'author' is the ID of the author
-        // }
-
         query.isVisible = true; //only find blog posts that are not hidden
 
         //---Sorting implementation---

@@ -9,7 +9,7 @@ import default3 from '../assets/images/default_image_3.jpg';
 import default4 from '../assets/images/default_image_4.jpg';
 import default5 from '../assets/images/default_image_5.jpg';
 
-function CreatePost() {
+function CreatePost({flag}) {
     const [title, setTitle] = useState('');
     const [image, setimage] = useState('');
     const [blurb, setBlurb] = useState('');
@@ -95,7 +95,7 @@ function CreatePost() {
                     <label htmlFor="content">Content</label>
                     <button onClick={generatePrompt} className="btn btn-secondary generatePrompt">💡 Generate Content</button>
                     <textarea id="content" name="content" placeholder="Type your blog post here..." cols="80" rows="10" value={content} onChange={(e) => setContent(e.target.value)} />
-                    <input type="submit" id="createBlogBtn" value="Post this blog!" />
+                    <input type="submit" id="createBlogBtn" value= {flag? "Save changes" : "Post this blog"} />
                     <p className="errortext" hidden={!errorMessage}>{errorMessage}</p>
                 </form>
             </div>
