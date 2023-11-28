@@ -50,6 +50,10 @@
 #yourBlogPosts .blogTimeStamp {
     display: none;
   }
+
+  #yourBlogPosts .blogSubtitle {
+    text-align: center;
+  }
   
 
   #yourBlogPosts li {

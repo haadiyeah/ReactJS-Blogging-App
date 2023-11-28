@@ -2,65 +2,135 @@ body {
     background-color: rgb(48, 35, 31);
     color: aliceblue;
     display: flex;
-    margin:0px;
-padding:0px;
-width:100%;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 
 }
 
 /* For mobile phones: */
 [class*="col-"] {
     width: 100%;
-  }
-  
-    /* For tablets: */
-  @media only screen and (min-width: 600px) {
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
-    .col-s-4 {width: 33.33%;}
-    .col-s-5 {width: 41.66%;}
-    .col-s-6 {width: 50%;}
-    .col-s-7 {width: 58.33%;}
-    .col-s-8 {width: 66.66%;}
-    .col-s-9 {width: 75%;}
-    .col-s-10 {width: 83.33%;}
-    .col-s-11 {width: 91.66%;}
-    .col-s-12 {width: 100%;}
-  }
-  
-    /* For desktop: */
-  @media only screen and (min-width: 768px) {
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
-  }
-  
+}
+
+/* For tablets: */
+@media only screen and (min-width: 600px) {
+    .col-s-1 {
+        width: 8.33%;
+    }
+
+    .col-s-2 {
+        width: 16.66%;
+    }
+
+    .col-s-3 {
+        width: 25%;
+    }
+
+    .col-s-4 {
+        width: 33.33%;
+    }
+
+    .col-s-5 {
+        width: 41.66%;
+    }
+
+    .col-s-6 {
+        width: 50%;
+    }
+
+    .col-s-7 {
+        width: 58.33%;
+    }
+
+    .col-s-8 {
+        width: 66.66%;
+    }
+
+    .col-s-9 {
+        width: 75%;
+    }
+
+    .col-s-10 {
+        width: 83.33%;
+    }
+
+    .col-s-11 {
+        width: 91.66%;
+    }
+
+    .col-s-12 {
+        width: 100%;
+    }
+}
+
+/* For desktop: */
+@media only screen and (min-width: 768px) {
+    .col-1 {
+        width: 8.33%;
+    }
+
+    .col-2 {
+        width: 16.66%;
+    }
+
+    .col-3 {
+        width: 25%;
+    }
+
+    .col-4 {
+        width: 33.33%;
+    }
+
+    .col-5 {
+        width: 41.66%;
+    }
+
+    .col-6 {
+        width: 50%;
+    }
+
+    .col-7 {
+        width: 58.33%;
+    }
+
+    .col-8 {
+        width: 66.66%;
+    }
+
+    .col-9 {
+        width: 75%;
+    }
+
+    .col-10 {
+        width: 83.33%;
+    }
+
+    .col-11 {
+        width: 91.66%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+}
 
 
-  .sidebar {
+
+.sidebar {
     height: 100%;
-     display: flex;
-     flex-direction: column;
-     padding: 20px;
-     border: 1px solid white;
-     margin: 10px;
-     border-radius: 10px;
- }
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid white;
+    margin: 10px;
+    border-radius: 10px;
+}
 
- .blogfeed {
+.blogfeed {
     width: 80%;
-  }
-  
+}
+
 
 .blog {
     width: 100%;
@@ -74,26 +144,28 @@ width:100%;
     flex-direction: column;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
-h1{
+h1 {
     font-size: 24;
 }
 
 .content {
     width: 100%;
     display: flex;
-    flex-direction: column; /* Change to column for mobile devices */
+    flex-direction: column;
+    /* Change to column for mobile devices */
     padding: 20px;
 }
 
 .sidebar {
-    height: auto; /* Adjust height for mobile devices */
+    height: auto;
+    /* Adjust height for mobile devices */
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
-    margin:0px;
+    margin: 0px;
 }
 
 .profileContainer {
@@ -101,13 +173,29 @@ h1{
     flex-direction: column;
 }
 
-.registerContent div{
+.registerContent div {
     width: 100%;
+
+}
+
+.registerContent {
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    height: 100%;
 }
 
 
 .blogfeed {
-    width: 100%; /* Full width for mobile devices */
+    width: 100%;
+    /* Full width for mobile devices */
+}
+
+/*for mobile*/
+#newPostFormContainer{
+    padding-left: 20px;
+    padding-right: 20px;
+
 }
 
 /* Responsive styles for desktops */
@@ -118,29 +206,53 @@ h1{
         padding-right: 60px;
     }
 
+    .registerContent {
+       padding: 50px;
+        flex-direction: row;
+        align-items: stretch !important;
+       
+    }
+
+    #registerMainContainer{
+        height: 400px !important;
+    }
+
+    #newPostFormContainer {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+
 
     #profileEditor {
-        width: 50%; 
+        width: 40%;
     }
-  
+
+    #yourBlogPosts{
+        width: 60%;
+    }
+
     .profileContainer {
         padding: 20px;
-    }
-
-
-    .profileContainer {
+        padding-left: 100px;
+        padding-right: 100px;
         display: flex;
         flex-direction: row;
     }
 
-    .sidebar {
-        width: 20%; /* Adjust width for desktops */
-        margin: 10px;
-        margin-right: 20px;
-     
+    #register {
+        width: 100%;
     }
 
-    .navbar{
+
+    .sidebar {
+        width: 20%;
+        /* Adjust width for desktops */
+        margin: 10px;
+        margin-right: 20px;
+
+    }
+
+    .navbar {
         margin-top: 0px;
     }
 
@@ -148,18 +260,21 @@ h1{
         width: 80%;
     }
 
-    .registerContent div{
-        width: 100% !important;
+    .registerContent div {
+       
         align-items: center;
+        flex-direction: row;
+        padding-left: 50px;
+        padding-right: 50px;
     }
 
     h1 {
         font-size: 20px;
     }
 
-    .feed{
+    .feed {
         padding-left: 20%;
-    padding-right: 20%;
+        padding-right: 20%;
     }
 
     #submitComment {
@@ -168,8 +283,8 @@ h1{
 
 }
 
-.blog:hover{
-    transform: scale(1.01); 
+.blog:hover {
+    transform: scale(1.01);
     cursor: pointer;
 }
 
@@ -178,14 +293,14 @@ h1{
 
 .blogBrief {
     width: 100%;
-    margin-top:  auto;
+    margin-top: auto;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    justify-content:  flex-end;
-   
+    justify-content: flex-end;
+
     flex-direction: column;
     padding: 20px;
-    word-wrap:break-word ;
+    word-wrap: break-word;
     box-sizing: content-box;
 }
 
@@ -248,13 +363,13 @@ h1{
 
 .sidebar .searchbar {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
 }
 
 .navbarBrand {
     font-size: 30px;
     margin-left: 20px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .blogfeed h1 {
@@ -262,30 +377,33 @@ h1{
     margin-bottom: 10px;
 }
 
-#prevButton, #nextButton {
+#prevButton,
+#nextButton {
     border-radius: 40px;
     padding: 10px;
     margin: 0;
     border: none;
     box-shadow: 3px 3px 3px rgb(116, 104, 82);
     transition: all 0.3s ease-in-out;
-    background-color:blanchedalmond;
-    color:rgb(48, 35, 31);
+    background-color: blanchedalmond;
+    color: rgb(48, 35, 31);
 
 }
 
-#prevButton:hover, #nextButton:hover{
-   
-    background-color:rgb(255, 255, 255);
-    color:rgb(0, 0, 0);
-    
+#prevButton:hover,
+#nextButton:hover {
+
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+
 }
 
-#prevButton:disabled, #nextButton:disabled{
-   
-    background-color:rgb(123, 123, 123);
-    color:rgb(67, 67, 67);
-    
+#prevButton:disabled,
+#nextButton:disabled {
+
+    background-color: rgb(123, 123, 123);
+    color: rgb(67, 67, 67);
+
 }
 
 #paginationButtons {
@@ -295,7 +413,7 @@ h1{
     width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
-    padding-left:50px;
+    padding-left: 50px;
     padding-right: 50px;
 }
 
@@ -311,7 +429,7 @@ h1{
     border-radius: 50px;
 }
 
-.sidebar input[type="submit"]:hover{
+.sidebar input[type="submit"]:hover {
     background-color: wheat;
 }
 
@@ -327,28 +445,28 @@ h1{
 
 
 /* sidebar button to apply search filter etc */
-#goSearch{
-border: none;
-border-radius: 30px;
-margin: 0;
-background-color: rgb(224, 196, 143);
-padding: 5px;
-transition: all 0.1s ease-in-out;
+#goSearch {
+    border: none;
+    border-radius: 30px;
+    margin: 0;
+    background-color: rgb(224, 196, 143);
+    padding: 5px;
+    transition: all 0.1s ease-in-out;
 }
 
 #goSearch:hover {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-    font-weight:500;
+    font-weight: 500;
 }
 
-.feed{
-    padding-top:20px;
-    display:flex;
+.feed {
+    padding-top: 20px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 

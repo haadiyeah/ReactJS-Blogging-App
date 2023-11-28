@@ -45,14 +45,14 @@ function Navbar() {
                 {token && <b>Hello, {username} </b>}
                 {!token && <button class="btn btn-primary"> <Link className="link" to="/users/register" >Sign up</Link> </button>}
                 {!token && <button class="btn btn-secondary"><Link className="link" to="/users/register" >Log in</Link></button>}
-                {token && <button class="btn btn-secondary">   <Link className="link" to="/create">➕</Link>    </button> }
+                {token && <button class="btn btn-secondary">   <Link className="link" to="/create">➕</Link>  </button> }
                 {token && <button id="notifications" class="btn btn-secondary" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>🔔</button>}
                 {isNotificationsOpen && (
                  <NotificationMenu isNotificationsOpen={isNotificationsOpen} setIsNotificationsOpen={setIsNotificationsOpen} />
                 )}
                 {token && <button class="btn btn-secondary"><Link className="link" to="/users/profile" >👤</Link></button> /* notif */}
         
-                {token && <button class="btn btn-secondary" onClick={() => {
+                {token && <button class="btn btn-secondary" id="logoutbtn" onClick={() => {
                     if (window.confirm('Are you sure you want to log out?')) {
                         setToken('');
                     }

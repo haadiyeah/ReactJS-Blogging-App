@@ -7,7 +7,7 @@ import '../assets/styles/profile.css';
 import { formatTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 import { useNavigate } from 'react-router-dom';
 
-//Blog component which displays as a tile in the BlogFeed component
+//*** Blog component which displays as a tile in the BlogFeed component ***//
 function Blog({ blog, flag }) {
     const { token, setToken } = useStore(); //getting token
     const [isDeleted, setIsDeleted] = React.useState(false);

@@ -14,7 +14,8 @@ function BlogFeed({ blogs, flag }) {
     }
     return (
         <div className="blogfeed">
-            <h1 id = "fresh">Fresh from the Blog!</h1>
+            {blogs.length>0 && <h1 id = "fresh">Fresh from the Blog!</h1>}
+            {blogs.length<=0 && <h1 id = "fresh">No posts found, try a different keyword.</h1>}
             <ul class="blogFeedList">
                 {blogs.map(blog => {
                     return(

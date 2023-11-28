@@ -132,8 +132,8 @@ function CreatePost() {
     };
 
     return (
-        <div className="registerContent">
-            <div id="register" style={{width: '70%'}}>
+        <div className="registerContent" id="newPostFormContainer">
+            <div id="register" style={{width: '100%'}}>
                { isEditing ? <h5>Edit your Post</h5> : <h5>Create new post</h5> }
                 <hr></hr>
                 <form onSubmit={onSubmit} id="createPostForm">

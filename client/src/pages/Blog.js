@@ -7,6 +7,10 @@ import useStore from '../store/store'; //zustand
 import defaultImg from '../assets/images/default_image.jpg'; //import default image
 import CommentSection from '../components/CommentSection';
 import RatingArea from '../components/RatingArea';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 
 //Blog page to display details of a particular blog
 //On the route /blogs/:blogId
@@ -62,6 +66,13 @@ function Blog() {
         }
     };
 
+    //for markdown
+    const renderers = {
+        code: ({language, value}) => {
+            return <SyntaxHighlighter style={solarizedlight} language={language} children={value} />
+        }
+    }
+
 
     if (!blog) {
         return <div className="loading">Loading...</div>;
@@ -84,7 +95,8 @@ function Blog() {
 
                 {/*Actual blog content */}
                 <div class="blogContent">
-                    <p class="blogText">{blog.content}</p>
+                    {/* <p class="blogText">{blog.content}</p> */}
+                    <ReactMarkdown className="blogText" children={blog.content} components={renderers}/>
                     <hr />
                     {"By " + blog.owner}
                     <button className='btn btn-secondary' onClick={handleFollow} disabled={message == 'Cannot follow yourself'}>

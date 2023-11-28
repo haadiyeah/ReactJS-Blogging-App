@@ -1,66 +1,68 @@
-
 /* For mobile phones: */
 [class*="col-"] {
-    width: 100%;
-  }
-  
+  width: 100%;
+}
+
 
 .registerContent {
-    display: flex;
-    width: 100%;
-    height:100%;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 
-.registerContent div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin: 10px;
-    height: 100%;
-    border: 1px solid rgb(101, 86, 59);
-    border-radius: 20px;
-    box-sizing: border-box;
+.registerContent div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 10px;
+  height: 100%;
+  border: 1px solid rgb(101, 86, 59);
+  border-radius: 20px;
+  box-sizing: border-box;
+  
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
-  flex:1;
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  flex: 1;
   margin: 10px;
 }
 
- input[type="submit"] {
-    padding: 5px;
-    background-color: transparent;
-    border: 1px solid wheat;
-    color: wheat;
-    transition: all 0.1s ease-in-out;
-    margin: 0px;
-    margin-top: 10px;
-    border-radius: 50px;
-    width: 100%;
+input[type="submit"] {
+  padding: 5px;
+  background-color: transparent;
+  border: 1px solid wheat;
+  color: wheat;
+  transition: all 0.1s ease-in-out;
+  margin: 0px;
+  margin-top: 10px;
+  border-radius: 50px;
+  width: 100%;
 
 }
 
 textarea {
-    padding: 20px;
-    border-radius: 10px;
-    background-color: transparent;
-    color: wheat;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: transparent;
+  color: wheat;
 
 
 }
-input[type="submit"]:hover{
-    background-color: wheat;
-    color: rgb(72, 48, 39);
+
+input[type="submit"]:hover {
+  background-color: wheat;
+  color: rgb(72, 48, 39);
 }
 
 .errortext {
-    color: red;
+  color: red;
 }
 
 .generatePrompt {
@@ -74,3 +76,19 @@ input[type="submit"]:hover{
   align-items: self-start;
 }
 
+.registerContent hr {
+  border: none;
+  border-top: 1px solid rgba(245, 222, 179, 0.758);
+  color: black;
+  background-color: black;
+  height: 1px;
+  width: 100%;
+}
+
+#logoutbtn {
+  margin-right: 20px;
+}
+
+#yourBlogPosts h4 {
+  text-align: center;
+}
