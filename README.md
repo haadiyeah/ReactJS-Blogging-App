@@ -23,7 +23,7 @@ Welcome to Hyrule Gazette, a blog application inspired by the legendary world of
 
 ### Create Blogs with special "Generate Content" feature
 - Craft your blogs with your own header image, title, content and blurb.
-- Utilize the special "Generate Content" feature for Zelda-themed inspiration.
+- Utilize the special "Generate Content" feature for Zelda-themed inspiration. (Credits to open-source Zelda API https://docs.zelda.fanapis.com/ ).
 - Provides a sample image, title, and content generated about Zelda games, dungeons, bosses, and locations.
 ![AddingPost](image-1.png)
 
