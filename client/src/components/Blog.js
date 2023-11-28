@@ -5,12 +5,15 @@ import myImage from '../assets/images/default_image.jpg'; //import default image
 import { Link } from 'react-router-dom';
 import '../assets/styles/profile.css';
 import { formatTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
+import { useNavigate } from 'react-router-dom';
 
 //Blog component which displays as a tile in the BlogFeed component
 function Blog({ blog, flag }) {
-    let url = blog.image ? blog.image : myImage;
     const { token, setToken } = useStore(); //getting token
     const [isDeleted, setIsDeleted] = React.useState(false);
+    const navigate = useNavigate();
+
+    let url = blog.image ? blog.image : myImage;
     blog.createdAt = formatTimestamp(blog.createdAt);
 
     const deleteBlog = async () => {
@@ -39,8 +42,9 @@ function Blog({ blog, flag }) {
         }
     };
 
-    const editBlog = async () => {
-    }
+    const editBlog = () => {
+        navigate(`/create/${blog._id}`);
+    };
 
     if (isDeleted) {
         return (
@@ -62,17 +66,17 @@ function Blog({ blog, flag }) {
                         <p class="blogSubtitle">
                             {blog.blurb ? blog.blurb : (blog.content.length > 90 ? `${blog.content.substring(0, 90)}...` : blog.content)}                    </p>
                         <p class="blogSubtitle blogTimeStamp">{blog.createdAt + " by " + blog.owner}</p>
-                        {/* <p>Owner: {blog.owner}</p>
-                    <p>Average Rating: {blog.averageRating}</p> */}
-                        {/* <p>Comments: {blog.comments}</p> */}
-                        {/* <p>Visible: {blog.isVisible}</p> */}
-                        {/* <p>Categories: {blog.categories}</p> */}
                     </div>
                 </div>
             </Link>
             {flag ? <div className="modifybtns">
+                {/* HEART BROKEN FROM THIS CODE <button class="blogButton"> 
+                    <Link className="link editbtn" to={{ pathname: "/create", state: { blog: blog } }}>✍ Edit</Link>
+                    </button> */}
+
                 <button onClick={editBlog} class="blogButton">✍ Edit</button>
-                <button onClick={deleteBlog} class="blogButton">🗑️ Delete</button>
+                <button onClick={deleteBlog} class="blogButton">❌ Delete</button>
+
             </div> : null}
         </li>
     )

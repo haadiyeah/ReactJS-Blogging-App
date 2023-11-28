@@ -86,7 +86,7 @@ function Profile() {
 
     return (
         <div className="registerContent profileContainer">
-            <div >
+            <div id="profileEditor" >
                 <h3>Edit Profile Details</h3>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="username">Username: </label>

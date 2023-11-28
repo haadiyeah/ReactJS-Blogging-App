@@ -8,8 +8,12 @@ import default2 from '../assets/images/default_image_2.jpg';
 import default3 from '../assets/images/default_image_3.jpg';
 import default4 from '../assets/images/default_image_4.jpg';
 import default5 from '../assets/images/default_image_5.jpg';
+import { useParams } from 'react-router-dom';
 
-function CreatePost({flag}) {
+
+function CreatePost() {
+    const { blogId } = useParams();
+    const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState('');
     const [image, setimage] = useState('');
     const [blurb, setBlurb] = useState('');
@@ -18,37 +22,87 @@ function CreatePost({flag}) {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!token) {
-            alert("You were logged out. Please log back in.")
-            navigate(-1);
+    useEffect( () => {
+        if (blogId) {
+            setIsEditing(true);
+           populatePostToEdit();
         }
-    }, []);
+    }, [blogId, isEditing]);
 
-    const onSubmit = async (e) => {
-        e.preventDefault();    
-        const response = await fetch('http://localhost:3000/blogs/new', {
-            method: 'POST',
+    const populatePostToEdit = async () => {
+        const response = await fetch(`http://localhost:3000/blogs/${blogId}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `${token}`,
             },
-            body: JSON.stringify({ title, image, blurb, content }),
         });
-    
+
         const data = await response.json();
 
         if (response.ok) {
-            alert(data.message);
-            setTitle('');
-            setimage('');
-            setBlurb('');
-            setContent('');
-            navigate(`/blogs/${data.id}`);
+            setTitle(data.title);
+            setimage(data.image);
+            setBlurb(data.blurb);
+            setContent(data.content);
         } else {
             const errorMessage = response.message;
             setErrorMessage(errorMessage);
         }
+    
+    };
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        if (isEditing) {
+            const response = await fetch(`http://localhost:3000/blogs/${blogId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${token}`,
+                },
+                body: JSON.stringify({ title, image, blurb, content }),
+            });
+            const msg = await response.text();
+            alert(msg);
+    
+            if (response.ok) {
+                setTitle('');
+                setimage('');
+                setBlurb('');
+                setContent('');
+                navigate(`/blogs/${blogId}`);
+            } else {
+                const errorMessage = response.message;
+                setErrorMessage(errorMessage);
+            }
+        }
+        else {
+            const response = await fetch('http://localhost:3000/blogs/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${token}`,
+                },
+                body: JSON.stringify({ title, image, blurb, content }),
+            });
+        
+            const data = await response.json();
+    
+            if (response.ok) {
+                alert(data.message);
+                setTitle('');
+                setimage('');
+                setBlurb('');
+                setContent('');
+                navigate(`/blogs/${data.id}`);
+            } else {
+                const errorMessage = response.message;
+                setErrorMessage(errorMessage);
+            }
+        }
+
     };
 
     const generatePrompt = async (e) => {
@@ -79,8 +133,8 @@ function CreatePost({flag}) {
 
     return (
         <div className="registerContent">
-            <div id="register">
-                <h5>Create post</h5>
+            <div id="register" style={{width: '70%'}}>
+               { isEditing ? <h5>Edit your Post</h5> : <h5>Create new post</h5> }
                 <hr></hr>
                 <form onSubmit={onSubmit} id="createPostForm">
                     <label htmlFor="title">Post Title</label>
@@ -95,7 +149,7 @@ function CreatePost({flag}) {
                     <label htmlFor="content">Content</label>
                     <button onClick={generatePrompt} className="btn btn-secondary generatePrompt">💡 Generate Content</button>
                     <textarea id="content" name="content" placeholder="Type your blog post here..." cols="80" rows="10" value={content} onChange={(e) => setContent(e.target.value)} />
-                    <input type="submit" id="createBlogBtn" value= {flag? "Save changes" : "Post this blog"} />
+                    <input type="submit" id="createBlogBtn" value= {isEditing? "Save changes" : "Post this blog"} />
                     <p className="errortext" hidden={!errorMessage}>{errorMessage}</p>
                 </form>
             </div>

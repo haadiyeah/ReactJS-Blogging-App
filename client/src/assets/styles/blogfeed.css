@@ -118,8 +118,13 @@ h1{
         padding-right: 60px;
     }
 
-    #yourBlogPosts{
-        width: 80% !important;
+
+    #profileEditor {
+        width: 50%; 
+    }
+  
+    .profileContainer {
+        padding: 20px;
     }
 
 
@@ -141,6 +146,11 @@ h1{
 
     .blogfeed {
         width: 80%;
+    }
+
+    .registerContent div{
+        width: 100% !important;
+        align-items: center;
     }
 
     h1 {

@@ -40,10 +40,11 @@ function App() {
                     <Route path="feed" element={<Feed />} />
                 </Route> 
 
-                <Route path="create" element={<CreatePost />} />
+                <Route path="create"  >
+                   <Route index element={<CreatePost />} /> 
+                    <Route path=":blogId" element={<CreatePost />} />
+                </Route>
 
-                {/* <Route path=":id" element={<Book />} />
-                <Route path="new" element={<NewBook />} /> */}
             </Route>
             {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>

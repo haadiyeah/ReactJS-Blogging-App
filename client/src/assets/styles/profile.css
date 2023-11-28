@@ -25,6 +25,7 @@
 
 .modifybtns button {
     flex: 1;
+    width: 100%;
     border: none;
     border-radius: 10px;
     background-color: transparent;
@@ -34,6 +35,10 @@
     margin: 10px;
     margin-bottom: 0px;
     border: 1px solid wheat;
+}
+
+.editbtn {
+    flex:1;
 }
 
 .modifybtns button:hover {
