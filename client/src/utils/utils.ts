@@ -1,5 +1,5 @@
 
-export function formatTimestamp(inputTimestamp: string) : string {
+export function formatTimestamp(inputTimestamp:Date) : string {
     const date = new Date(inputTimestamp);
 
     //date components
@@ -17,7 +17,7 @@ export function formatTimestamp(inputTimestamp: string) : string {
     return formattedString;
 }
 
-export function formatNotifTimestamp(inputTimestamp: string): string {
+export function formatNotifTimestamp(inputTimestamp: Date): string {
     let date = new Date(inputTimestamp);
     let now = new Date();
     let diffTime = Math.abs(now.getTime() - date.getTime());
