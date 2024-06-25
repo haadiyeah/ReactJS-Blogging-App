@@ -4,6 +4,8 @@ import useStore from '../store/store'; //zustand
 import '../assets/styles/notification.css'
 import { formatNotifTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 
+
+
 function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
     const { token, setToken } = useStore(); //getting token
     const [notifications, setNotifications] = useState([]); //notifications array
