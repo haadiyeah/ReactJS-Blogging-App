@@ -7,6 +7,10 @@ import { jwtDecode } from 'jwt-decode';
 import useStore from '../store/store';
 import NotificationMenu from './NotificationMenu';
 
+interface CustomPayloadToken {
+    username: string;
+}
+
 function Navbar() {
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const { token, setToken } = useStore();
@@ -14,14 +18,14 @@ function Navbar() {
     let username = '';
 
     if (token) {
-        const decodedToken = jwtDecode(token);
-        username = decodedToken.username; // replace 'username' with the actual property name in the token payload
+        const decodedToken = jwtDecode<CustomPayloadToken>(token);
+        username = decodedToken.username; 
     }
 
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a className="navbar-brand navbarBrand" href="#"> <img src={logo} class="logo" alt="hyrule-logo" /> Hyrule Gazette</a>
+            <a className="navbar-brand navbarBrand" href="#"> <img src={logo} className="logo" alt="hyrule-logo" /> Hyrule Gazette</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -41,18 +45,18 @@ function Navbar() {
 
                 </ul>
             </div>
-            <div class="buttons">
+            <div className="buttons">
                 {token && <b>Hello, {username} </b>}
-                {!token && <button class="btn btn-primary"> <Link className="link" to="/users/register" >Sign up</Link> </button>}
-                {!token && <button class="btn btn-secondary"><Link className="link" to="/users/register" >Log in</Link></button>}
-                {token && <button class="btn btn-secondary">   <Link className="link" to="/create">➕</Link>  </button> }
-                {token && <button id="notifications" class="btn btn-secondary" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>🔔</button>}
+                {!token && <button className="btn btn-primary"> <Link className="link" to="/users/register" >Sign up</Link> </button>}
+                {!token && <button className="btn btn-secondary"><Link className="link" to="/users/register" >Log in</Link></button>}
+                {token && <button className="btn btn-secondary">   <Link className="link" to="/create">➕</Link>  </button> }
+                {token && <button id="notifications" className="btn btn-secondary" onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>🔔</button>}
                 {isNotificationsOpen && (
                  <NotificationMenu isNotificationsOpen={isNotificationsOpen} setIsNotificationsOpen={setIsNotificationsOpen} />
                 )}
-                {token && <button class="btn btn-secondary"><Link className="link" to="/users/profile" >👤</Link></button> /* notif */}
+                {token && <button className="btn btn-secondary"><Link className="link" to="/users/profile" >👤</Link></button> /* notif */}
         
-                {token && <button class="btn btn-secondary" id="logoutbtn" onClick={() => {
+                {token && <button className="btn btn-secondary" id="logoutbtn" onClick={() => {
                     if (window.confirm('Are you sure you want to log out?')) {
                         setToken('');
                     }

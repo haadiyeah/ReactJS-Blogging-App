@@ -1,13 +1,28 @@
 import '../assets/styles/blogfeed.css';  //import css file
 import '../assets/styles/global.css';
-import BlogFeed from '../components/BlogFeed';
+import BlogFeed from './BlogFeed';
 import React, { useState, useEffect } from 'react';
 import useStore from '../store/store'; //zustand` 
 ///document.getElementById("textbox").value
 
+interface BlogType {
+  _id: string;
+  id: string;
+  image?: string;
+  createdAt: string;
+  title: string;
+  averageRating: number;
+  blurb?: string;
+  content: string;
+  owner: string;
+}
+
+
+
+
 function Feed() {
-  const [blogs, setBlogs] = React.useState([]);
-  const [error, setError] = useState(null);
+  const [blogs, setBlogs] = React.useState<BlogType[]>([]);
+  const [error, setError] = useState<Error | string | null>(null);
   const { token, setToken } = useStore();
 
   useEffect(() => {
@@ -42,8 +57,8 @@ function Feed() {
   return (
     <div className="feed">
         <h1>Your Feed</h1>
-        { (blogs.length==0 || error) ? <p>No blogs are in your feed just yet. Try following some bloggers first!</p> :
-        <BlogFeed blogs={blogs} /> }
+        { (blogs.length===0 || error) ? <p>No blogs are in your feed just yet. Try following some bloggers first!</p> :
+        <BlogFeed blogs={blogs} flag={false}/> }
     </div>
   )
 
