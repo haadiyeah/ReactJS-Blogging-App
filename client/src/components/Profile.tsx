@@ -1,40 +1,54 @@
-
 import '../assets/styles/global.css';
 import '../assets/styles/register.css';
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import useStore from '../store/store';//zustand` 
+import useStore from '../store/store'; // Assuming useStore is already a TypeScript module
 import { useNavigate } from 'react-router-dom';
-import BlogFeed from '../components/BlogFeed';
+import BlogFeed from './BlogFeed';
+const jwtDecode = require('jwt-decode').default; //changed for ts, idk this works...
+
+interface DecodedToken {
+    username: string;
+    email: string;
+    role: string;
+    id: string;
+}
+
+interface BlogType {
+    _id: string;
+    id: string;
+    image?: string;
+    createdAt: string;
+    title: string;
+    averageRating: number;
+    blurb?: string;
+    content: string;
+    owner: string;
+  }
 
 function Profile() {
     const { token, setToken } = useStore();
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [role, setRole] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
-    const [id, setid] = useState('');
+    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [role, setRole] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [password2, setPassword2] = useState<string>('');
+    const [id, setid] = useState<string>('');
     const navigate = useNavigate();
     
     useEffect(() => {
         if (token) {
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(token); // Type assertion
             setUsername(decodedToken.username);
             setEmail(decodedToken.email);
             setRole(decodedToken.role);
             setid(decodedToken.id);
         } else {
-            return (
-                <div>
-                    <p class="errortext">An error occurred! You are not signed in correctly</p>
-                </div>
-            )
+           console.log("An error occurred"); //removed jsx from here as ts doesnt support jsx in useEffect
         }
     }, [token]);
 
-    const [blogs, setBlogs] = useState(null);
+    const [blogs, setBlogs] = useState<BlogType[]>([]);
     useEffect(() => {
         fetch(`http://localhost:3000/blogs/by/me`, {
             method: 'GET',
@@ -44,13 +58,13 @@ function Profile() {
             },
         })
         .then(response => response.json())
-        .then(data => {
+        .then((data: BlogType[]) => {
             setBlogs(data);
         }).catch(error => console.error('Error:', error));
     }, [blogs]);
 
 
-    const onSubmit = async (event) => {
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if(password!=password2) {
@@ -76,7 +90,7 @@ function Profile() {
                 alert('User profile updated successfully');
                 navigate('/blogs');
             } else {
-                setErrorMessage(response.text());
+                setErrorMessage("an error occurred");
             }
         } catch (error) {
             setErrorMessage('Error updating user profile');

@@ -1,19 +1,22 @@
-
+import React, { useState } from 'react';
 import Rating from '../components/Rating';
-import { useState } from 'react';
 import useStore from '../store/store'; //zustand
 
-function RatingArea({blogId}) {
-    const { token, setToken } = useStore(); //getting token
-    const [rating, setRating] = useState(0);
-    const [message, setMessage] = useState(''); // state variable for the message in rating
+type RatingAreaProps = {
+    blogId: string;
+};
 
-    const handleRatingChange = (newRating) => {
+const RatingArea: React.FC<RatingAreaProps> = ({ blogId }) => {
+    const { token } = useStore(); //getting token
+    const [rating, setRating] = useState<number>(0);
+    const [message, setMessage] = useState<string>(''); // state variable for the message in rating
+
+    const handleRatingChange = (newRating: number) => {
         setRating(newRating);
     };
 
     const handleRatingSubmit = async () => {
-        if(!token){
+        if (!token) {
             setMessage("You must log in to rate this blog.");
             setTimeout(() => setMessage(''), 1200); // clear the message after 2 seconds
             return;
@@ -38,16 +41,15 @@ function RatingArea({blogId}) {
     };
 
     return (
-        <div class="blogDetail ratingArea">
-        <h4>Rate this blog</h4>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Rating onRatingChange={handleRatingChange} />
-            <button id="submitRating" onClick={handleRatingSubmit}>✔</button>
+        <div className="blogDetail ratingArea">
+            <h4>Rate this blog</h4>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Rating onRatingChange={handleRatingChange} />
+                <button id="submitRating" onClick={handleRatingSubmit}>✔</button>
+            </div>
+            <p className="commentText" id="ratingMsg" style={{ margin: '0', float: 'right' }}>{message}</p>
         </div>
-        <p class="commentText" id="ratingMsg" style={{ margin: '0', float: 'right' }}>{message}</p>
-    </div>
-    )
-
-} 
+    );
+};
 
 export default RatingArea;

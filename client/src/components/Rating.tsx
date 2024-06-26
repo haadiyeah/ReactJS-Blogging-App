@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactStars from "react-rating-stars-component";
 
-function Rating({ onRatingChange }) {
+type RatingProps = {
+    onRatingChange: (newRating: number) => void;
+};
+
+const Rating: React.FC<RatingProps> = ({ onRatingChange }) => {
     return (
         <ReactStars
             count={5}
@@ -10,6 +14,6 @@ function Rating({ onRatingChange }) {
             activeColor="#ffd700"
         />
     );
-}
+};
 
 export default Rating;

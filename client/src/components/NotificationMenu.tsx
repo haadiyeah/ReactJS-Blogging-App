@@ -4,16 +4,40 @@ import useStore from '../store/store'; //zustand
 import '../assets/styles/notification.css'
 import { formatNotifTimestamp } from '../utils/utils'; //import formatTimestamp function from utils.js
 
-function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
+interface NotifMenuProps {
+    isNotificationsOpen: boolean;
+    setIsNotificationsOpen: React.Dispatch<React.SetStateAction<boolean>> //dispatch function
+}
+
+interface FormattedNotifs {
+    type: string;
+    notifText: string;
+    date: string; 
+}
+
+interface CustomPayloadToken {
+    username: string;
+    _id: string;
+}
+
+interface Notification {
+    type: string;
+    notifText: string;
+    user: string;
+    createdAt: Date;
+}
+
+
+const NotificationMenu: React.FC<NotifMenuProps> = ({ isNotificationsOpen, setIsNotificationsOpen }) => {
     const { token, setToken } = useStore(); //getting token
-    const [notifications, setNotifications] = useState([]); //notifications array
+    const [notifications, setNotifications] = useState <FormattedNotifs[]> ([]); //notifications array
     const [showAll, setShowAll] = useState(false);
-    const menuRef = useRef(); // Create a ref
+    const menuRef = useRef<HTMLDivElement>(null);
     let id;
 
     useEffect(() => {
         if (token) {
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode <CustomPayloadToken> (token);
             const id = decodedToken._id;
 
             fetch('http://localhost:3000/interaction/notifications', {
@@ -22,9 +46,9 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
                 }
             })
                 .then(response => response.json())
-                .then(data => {
+                .then((data: Notification[]) => {
                     const formattedNotifications = data.map(notification => {
-                       let timeStamp =formatNotifTimestamp(notification.createdAt);
+                       const timeStamp =formatNotifTimestamp(notification.createdAt);
                         return {
                             type: notification.type,
                             notifText: notification.notifText,
@@ -39,12 +63,12 @@ function NotificationMenu({ isNotificationsOpen, setIsNotificationsOpen }) {
     }, [token]);
 
     useEffect(() => {
-        function handleClickOutside(event) {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+        function handleClickOutside(event: MouseEvent) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setIsNotificationsOpen(false);
             }
         }
-
+    
         // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
         return () => {

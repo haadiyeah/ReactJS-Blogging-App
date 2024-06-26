@@ -1,5 +1,5 @@
 
-export function formatTimestamp(inputTimestamp) {
+export function formatTimestamp(inputTimestamp:Date | string ) : string {
     const date = new Date(inputTimestamp);
 
     //date components
@@ -17,16 +17,16 @@ export function formatTimestamp(inputTimestamp) {
     return formattedString;
 }
 
-export function formatNotifTimestamp(inputTimestamp) {
-    let date = new Date(inputTimestamp);
-    let now = new Date();
-    let diffTime = Math.abs(now - date);
-    let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); // Use Math.floor here
-    let timestamp;
+export function formatNotifTimestamp(inputTimestamp: Date): string {
+    const date = new Date(inputTimestamp);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - date.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    let timestamp: string;
 
     if (diffDays < 1) {
-        const diffHours = Math.floor(diffTime / (1000 * 60 * 60)); // Use Math.floor here
-        if (diffHours < 1) { //not catering for minutes sorry:(
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        if (diffHours < 1) {
             timestamp = 'just now';
         } else {
             timestamp = `${diffHours} hr ago`;
