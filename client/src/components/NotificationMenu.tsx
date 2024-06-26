@@ -23,7 +23,7 @@ interface CustomPayloadToken {
 interface Notification {
     type: string;
     notifText: string;
-    user: String;
+    user: string;
     createdAt: Date;
 }
 
@@ -48,7 +48,7 @@ const NotificationMenu: React.FC<NotifMenuProps> = ({ isNotificationsOpen, setIs
                 .then(response => response.json())
                 .then((data: Notification[]) => {
                     const formattedNotifications = data.map(notification => {
-                       let timeStamp =formatNotifTimestamp(notification.createdAt);
+                       const timeStamp =formatNotifTimestamp(notification.createdAt);
                         return {
                             type: notification.type,
                             notifText: notification.notifText,

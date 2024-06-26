@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setBlogs, setLimit, limit, setPage, s
 
         let fetchString = `http://localhost:3000/search/?`;
 
-        let keywordParams = keywordsArray.map(keyword => `keywords[]=${keyword}`);
+        const keywordParams = keywordsArray.map(keyword => `keywords[]=${keyword}`);
         fetchString += keywordParams.join('&');
 
         fetchString += `&sortBy=${selectedSort.sortBy}&sortOrder=${selectedSort.sortOrder}&limit=${limit}`;

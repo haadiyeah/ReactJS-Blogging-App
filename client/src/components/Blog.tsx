@@ -27,7 +27,7 @@ const Blog: React.FC<BlogProps> = ({ blog, flag }) => {
     const [isDeleted, setIsDeleted] = useState(false);
     const navigate = useNavigate();
 
-    let url = blog.image ? blog.image : myImage;
+    const url = blog.image ? blog.image : myImage;
     blog.createdAt = formatTimestamp(blog.createdAt);
 
     const deleteBlog = async () => {
