@@ -1,5 +1,5 @@
 
-export function formatTimestamp(inputTimestamp:Date) : string {
+export function formatTimestamp(inputTimestamp:Date | string ) : string {
     const date = new Date(inputTimestamp);
 
     //date components
