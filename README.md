@@ -18,7 +18,7 @@ Welcome to Hyrule Gazette, a blog application inspired by the legendary world of
 
 ### Login and Signup
 - Users can create accounts by providing email, username, and password.
-- Existing users can log in securely.
+- Existing users can log in securely through the Login feature.
 ![Login_Signup_Forms](image.png)
 
 ### Create Blogs with special "Generate Content" feature
