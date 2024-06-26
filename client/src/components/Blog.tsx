@@ -11,7 +11,7 @@ interface BlogProps {
         _id: string;
         id: string;
         image?: string;
-        createdAt: string;
+        createdAt: string | Date ;
         title: string;
         averageRating: number;
         blurb?: string;

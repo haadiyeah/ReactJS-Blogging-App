@@ -48,7 +48,7 @@ function Profile() {
         }
     }, [token]);
 
-    const [blogs, setBlogs] = useState(null);
+    const [blogs, setBlogs] = useState<BlogType[]>([]);
     useEffect(() => {
         fetch(`http://localhost:3000/blogs/by/me`, {
             method: 'GET',
@@ -58,13 +58,13 @@ function Profile() {
             },
         })
         .then(response => response.json())
-        .then(data => {
+        .then((data: BlogType[]) => {
             setBlogs(data);
         }).catch(error => console.error('Error:', error));
     }, [blogs]);
 
 
-    const onSubmit = async (event) => {
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if(password!=password2) {
@@ -90,7 +90,7 @@ function Profile() {
                 alert('User profile updated successfully');
                 navigate('/blogs');
             } else {
-                setErrorMessage(response.text());
+                setErrorMessage("an error occurred");
             }
         } catch (error) {
             setErrorMessage('Error updating user profile');
