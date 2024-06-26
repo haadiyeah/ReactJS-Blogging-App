@@ -1,10 +1,10 @@
 import '../assets/styles/global.css';
 import '../assets/styles/register.css';
 import React, { useEffect, useState } from 'react';
-const jwtDecode = require('jwt-decode').default; //changed for ts, idk this works...
 import useStore from '../store/store'; // Assuming useStore is already a TypeScript module
 import { useNavigate } from 'react-router-dom';
 import BlogFeed from './BlogFeed';
+const jwtDecode = require('jwt-decode').default; //changed for ts, idk this works...
 
 interface DecodedToken {
     username: string;

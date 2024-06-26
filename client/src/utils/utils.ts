@@ -18,10 +18,10 @@ export function formatTimestamp(inputTimestamp:Date | string ) : string {
 }
 
 export function formatNotifTimestamp(inputTimestamp: Date): string {
-    let date = new Date(inputTimestamp);
-    let now = new Date();
-    let diffTime = Math.abs(now.getTime() - date.getTime());
-    let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const date = new Date(inputTimestamp);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - date.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     let timestamp: string;
 
     if (diffDays < 1) {
